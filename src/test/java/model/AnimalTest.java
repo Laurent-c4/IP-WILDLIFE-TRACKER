@@ -24,4 +24,11 @@ public class AnimalTest {
         assertTrue(animal.equals(otherAnimal));
     }
 
+    @Test
+    public void save_SavesAnimalToDatabase_Animal() {
+        Animal animal = new Animal("Cheetah");
+        animal.save();
+        assertEquals(animal,Animal.getAll().get(0));
+    }
+
 }

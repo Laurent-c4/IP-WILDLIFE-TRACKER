@@ -23,4 +23,11 @@ public class EndangeredAnimalTest {
         EndangeredAnimal otherAnimal = new EndangeredAnimal("Cheetah","Young", "Okay");
         assertTrue(animal.equals(otherAnimal));
     }
+
+    @Test
+    public void save_SavesAnimalToDatabase_Animal() {
+        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young","Okay");
+        animal.save();
+        assertEquals(animal,EndangeredAnimal.getAll().get(0));
+    }
 }
