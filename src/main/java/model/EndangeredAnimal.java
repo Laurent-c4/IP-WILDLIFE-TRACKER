@@ -3,31 +3,63 @@ package model;
 import org.sql2o.Connection;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EndangeredAnimal extends Fauna {
     private String health;
     private String age;
+    private int animalId;
     public static final String ANIMAL_TYPE = "endangered species";
 
-    public EndangeredAnimal(String name, String age, String health){
+    public EndangeredAnimal(String name, String age, String health, int animalId){
         this.name=name;
         this.age=age;
         this.health=health;
+        this.animalId=animalId;
         this.type=ANIMAL_TYPE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EndangeredAnimal that = (EndangeredAnimal) o;
+        return animalId == that.animalId &&
+                Objects.equals(health, that.health) &&
+                Objects.equals(age, that.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), health, age, animalId);
     }
 
     public void save() {
         try (Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO animals (name, age, type, health) VALUES (:name, :age, :type, :health);";
+            String sql = "INSERT INTO animals (name, age, type, health, animalId) VALUES (:name, :age, :type, :health, :animalId);";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", this.name)
                     .addParameter("age", this.age)
                     .addParameter("type", this.type)
                     .addParameter("health", this.health)
+                    .addParameter("animalId", this.animalId)
                     .executeUpdate()
                     .getKey();
 
         }
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public int getAnimalId() {
+        return animalId;
     }
 
     public static List<EndangeredAnimal> getAll() {
@@ -36,6 +68,19 @@ public class EndangeredAnimal extends Fauna {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
                     .executeAndFetch(EndangeredAnimal.class);
+        }
+    }
+
+    public static EndangeredAnimal findById(int id) {
+        try (Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM animals WHERE id=:id ;";
+            EndangeredAnimal animal = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(EndangeredAnimal.class);
+            return animal;
+
+
         }
     }
 }

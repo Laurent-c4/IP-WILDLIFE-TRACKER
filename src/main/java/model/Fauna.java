@@ -7,6 +7,10 @@ public abstract class Fauna {
     public int id;
     public String type;
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
