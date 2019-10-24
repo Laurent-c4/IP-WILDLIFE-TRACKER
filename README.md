@@ -7,6 +7,16 @@ This is a web app for tracking animal sightings in an area
 ## Setup/Installation Requirements
 * To use this project, clone it.
 * Make sure java, gradle, heroku and postgresql is installed
+* Create a postgres database using the commands below:
+* CREATE DATABASE wildlife_tracker;
+  \c wildlife_tracker;
+  CREATE TABLE fauna_species (id SERIAL PRIMARY KEY, name VARCHAR, type VARCHAR);
+  CREATE TABLE animals (id SERIAL PRIMARY KEY, name VARCHAR, type VARCHAR, health VARCHAR, age VARCHAR, animalid INTEGER);
+  CREATE TABLE sightings (id SERIAL PRIMARY KEY, animalid INTEGER, location VARCHAR, rangername VARCHAR, sighted TIMESTAMP);
+  CREATE DATABASE wildlife_tracker_test WITH TEMPLATE wildlife_tracker;
+* If running locally, type command gradle run in project root directory  
+* Otherwise go to https://medium.com/@bmarete/deploying-a-spark-java-app-with-a-postgresql-database-to-heroku-bf54c2e664b8 for more
+ information on setting up heroku to work with the project
 * Open the project in the IDE and push to heroku master, then open the link provided in the terminal
 
 ## Technologies Used
