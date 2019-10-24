@@ -3,9 +3,7 @@ package model;
 import org.sql2o.Connection;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Sighting {
     private int id;
@@ -16,6 +14,10 @@ public class Sighting {
 
     public Timestamp getSighted() {
         return sighted;
+    }
+
+    public String getSightedString() {
+        return String.format("%1$TD %1$TR",sighted);
     }
 
     @Override
@@ -68,8 +70,6 @@ public class Sighting {
                     .executeUpdate()
                     .getKey();
 
-
-
         }
 
     }
@@ -97,59 +97,15 @@ public class Sighting {
     }
 
     public static List<EndangeredAnimal>  getAllEndangeredAnimals() {
-//        List<Sighting> allSightings = new ArrayList<Sighting>();
-//        List<EndangeredAnimal> endangeredAnimalList = new ArrayList<EndangeredAnimal>();
-//
-//        try (Connection con = model.DB.sql2o.open()) {
-//            String sightingSql = "SELECT * FROM sightings;";
-//            allSightings = con.createQuery(sightingSql)
-//                    .throwOnMappingFailure(false)
-//                    .executeAndFetch(Sighting.class);
-//
-//            for (int i = 0; i < allSightings.size(); i++) {
-//                String animalSql = "SELECT * FROM animals WHERE animalId=:animalId AND type='endangered species';";
-//
-//                endangeredAnimalList.add(con.createQuery(animalSql)
-//                        .addParameter("animalId", allSightings.get(i).getAnimalId())
-//                        .throwOnMappingFailure(false)
-//                        .executeAndFetchFirst(EndangeredAnimal.class));
-//                if (endangeredAnimalList.contains(null)){
-//                    endangeredAnimalList.remove(i);
-//                }
-//            }
-//            return endangeredAnimalList;
-//        }
        return EndangeredAnimal.getAll();
     }
 
     public static List<Animal> getAllAnimals() {
-//        List<Sighting> allSightings = new ArrayList<Sighting>();
-//        List<Animal> animalList = new ArrayList<Animal>();
-//
-//        try (Connection con = model.DB.sql2o.open()) {
-//            String sightingSql = "SELECT * FROM sightings;";
-//            allSightings = con.createQuery(sightingSql)
-//                    .throwOnMappingFailure(false)
-//                    .executeAndFetch(Sighting.class);
-//
-//            for (int i = 0; i < allSightings.size(); i++) {
-//                String animalSql = "SELECT * FROM animals WHERE animalId=:animalId AND type='common species';";
-//
-//                animalList.add(con.createQuery(animalSql)
-//                        .addParameter("animalId", allSightings.get(i).getAnimalId())
-//                        .throwOnMappingFailure(false)
-//                        .executeAndFetchFirst(Animal.class));
-//                if (animalList.contains(null)){
-//                    animalList.remove(i);
-//                }
-//            }
-//            return animalList;
-//        }
         return Animal.getAll();
     }
 
-    public static List<Object> getAllSightedAnimals() {
-        List<Object> allSightedAnimals = new ArrayList<Object>();
+    public static List<Fauna> getAllSightedAnimals() {
+        List<Fauna> allSightedAnimals = new ArrayList<Fauna>();
         try{for (int i=0; i < getAllAnimals().size(); i++){
             allSightedAnimals.add(getAllAnimals().get(i));
         }
@@ -157,19 +113,10 @@ public class Sighting {
             allSightedAnimals.add(getAllEndangeredAnimals().get(i));
         }}catch (Exception e){}
 
-//        allSightedAnimals.sort(Comparator.comparing(Vertex:: )); Sort SighedAnmals
-
+        Collections.sort(allSightedAnimals, new SortById());
 
         return allSightedAnimals;
     }
 
-//    public static List<Object> getAllSightedAnimals() {
-//        try (Connection con = model.DB.sql2o.open()){
-//            String sql = "SELECT * FROM animals;";
-//            return con.createQuery(sql)
-//                    .throwOnMappingFailure(false)
-//                    .executeAndFetch(Object.class);
-//        }
-//    }
 
 }

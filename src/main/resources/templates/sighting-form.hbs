@@ -1,12 +1,4 @@
 {{#partial "content"}}
-    {{#if editSighting}}
-        <h1>Edit sighting details</h1>
-        <form action="/squads/{{squad.id}}" method="post">
-            <label for="name">Edit squad name</label>
-            <input id="newSquadName" name="newSquadName" type="text" value="{{squad.name}}">
-            <button type="submit" class="btn btn-primary">Go!</button>
-        </form>
-    {{else}}
         <h1>Add a new Sighting</h1>
         <form action="/sightings" method="post">
             <div class="form-row">
@@ -58,7 +50,6 @@
             <button type="submit" class="btn btn-success">Go!</button>
 
         </form>
-    {{/if}}
 {{/partial}}
 
 {{> layout.hbs}}

@@ -78,10 +78,12 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             List<Sighting> sightingList = Sighting.getAll();
             model.put("sightings", sightingList);
-            List<Object> allAnimalsSighted=Sighting.getAllSightedAnimals();
+            List<Fauna> allAnimalsSighted=Sighting.getAllSightedAnimals();
             model.put("allAnimalsSighted",allAnimalsSighted);
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
+
+        //get: delete
 
 
 
