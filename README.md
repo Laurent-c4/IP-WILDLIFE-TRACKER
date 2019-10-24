@@ -19,7 +19,7 @@ Postgresql
 ![Hero Squad](/src/main/resources/public/images/screen2.png)
 ![Hero Squad](/src/main/resources/public/images/screen3.png)
 
-Go to https://quiet-mountain-16804.herokuapp.com/ for a live demo
+Go to //https://c4-wildlife-tracker.herokuapp.com for a live demo
 
 ## Support and contact details
 Contact +254792599994 for any questions concerning the app. Feel free to give your feedback too.
