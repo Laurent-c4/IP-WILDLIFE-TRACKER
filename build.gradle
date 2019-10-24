@@ -1,11 +1,13 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'wildlife-tracker'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+mainClassName = 'App'
 
 repositories {
     mavenCentral()
@@ -18,4 +20,7 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'org.sql2o:sql2o:1.5.4'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
+
+    applicationName = "todo"
+    task stage(dependsOn: ['clean', 'installDist'])
 }
