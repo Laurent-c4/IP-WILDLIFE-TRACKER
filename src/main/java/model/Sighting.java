@@ -1,11 +1,9 @@
 package model;
 
 import org.sql2o.Connection;
-import sun.security.provider.certpath.Vertex;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,7 +100,7 @@ public class Sighting {
 //        List<Sighting> allSightings = new ArrayList<Sighting>();
 //        List<EndangeredAnimal> endangeredAnimalList = new ArrayList<EndangeredAnimal>();
 //
-//        try (Connection con = DB.sql2o.open()) {
+//        try (Connection con = model.DB.sql2o.open()) {
 //            String sightingSql = "SELECT * FROM sightings;";
 //            allSightings = con.createQuery(sightingSql)
 //                    .throwOnMappingFailure(false)
@@ -128,7 +126,7 @@ public class Sighting {
 //        List<Sighting> allSightings = new ArrayList<Sighting>();
 //        List<Animal> animalList = new ArrayList<Animal>();
 //
-//        try (Connection con = DB.sql2o.open()) {
+//        try (Connection con = model.DB.sql2o.open()) {
 //            String sightingSql = "SELECT * FROM sightings;";
 //            allSightings = con.createQuery(sightingSql)
 //                    .throwOnMappingFailure(false)
@@ -166,7 +164,7 @@ public class Sighting {
     }
 
 //    public static List<Object> getAllSightedAnimals() {
-//        try (Connection con = DB.sql2o.open()){
+//        try (Connection con = model.DB.sql2o.open()){
 //            String sql = "SELECT * FROM animals;";
 //            return con.createQuery(sql)
 //                    .throwOnMappingFailure(false)
