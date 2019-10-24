@@ -1,0 +1,54 @@
+{{#partial "content"}}
+
+    <h1> Sightings</h1>
+
+    {{#if sightings}}
+        <div class="d-flex justify-content-center">
+        <table class="table text-white floatedTable" style="width: 67%;">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Age</th>
+                <th scope="col">Health</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each allAnimalsSighted}}
+                <tr>
+                    <th scope="row">=></th>
+                    <td>{{name}}</td>
+                    <td>{{type}}</td>
+                    <td>{{age}}</td>
+                    <td>{{health}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        <table class="table text-white floatedTable" style="width: 33%;">
+            <thead>
+            <tr>
+                <th scope="col">Area</th>
+                <th scope="col">Ranger</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each sightings}}
+                <tr>
+                    <td>{{location}}</td>
+                    <td>{{rangerName}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        </div>
+        <p class="text-muted">
+            <a class="btn btn-outline-success" href="/sightings/new">ADD ANOTHER SIGHTING</a><br><br>
+        </p>
+    {{else}}
+        <p>No sightings</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

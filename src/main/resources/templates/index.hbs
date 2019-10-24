@@ -1,0 +1,17 @@
+{{#partial "content"}}
+    <p>Welcome Ranger! Use this app to track wildlife in the forest of Douglas Fir. You are most likely to find the following Species of animals</p>
+    <h1> Species</h1>
+
+    {{#if species}}
+        {{#each species }}
+            <p><strong>{{name}}</strong></p>
+        {{/each}}
+        <p class="text-muted">
+            <a class="btn btn-outline-success" href="/sightings/new">LETS TRACK</a><br><br>
+        </p>
+    {{else}}
+        <p>No species</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

@@ -1,0 +1,64 @@
+{{#partial "content"}}
+    {{#if editSighting}}
+        <h1>Edit sighting details</h1>
+        <form action="/squads/{{squad.id}}" method="post">
+            <label for="name">Edit squad name</label>
+            <input id="newSquadName" name="newSquadName" type="text" value="{{squad.name}}">
+            <button type="submit" class="btn btn-primary">Go!</button>
+        </form>
+    {{else}}
+        <h1>Add a new Sighting</h1>
+        <form action="/sightings" method="post">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="animalId">Species</label>
+                    <select id="animalId" name="animalId" class="form-control">
+                        <option selected>Choose...</option>
+                        {{#each species}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="age">Age</label>
+                    <select id="age" name="age" class="form-control">
+                        <option selected>Choose...</option>
+                        <option value="newborn">NewBorn</option>
+                        <option value="young">Young</option>
+                        <option value="adult">Adult</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="health">Health</label>
+                    <select id="health" name="health" class="form-control">
+                        <option selected>Choose...</option>
+                        <option value="healthy">Healthy</option>
+                        <option value="ill">Ill</option>
+                        <option value="okay">Okay</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="location">Location</label>
+                    <select id="location" name="location" class="form-control">
+                        <option selected>Choose...</option>
+                        <option value="Zone A">Zone A</option>
+                        <option value="Zone B">Zone B</option>
+                        <option value="Zone C">Zone C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+            <div class="form-group" style="width:40%;">
+                <label for="rangerName">Ranger Name</label>
+                <input id="rangerName" name="rangerName" type="text" class="form-control"><br>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-success">Go!</button>
+
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
