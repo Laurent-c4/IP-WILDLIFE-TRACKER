@@ -1,6 +1,7 @@
 package model;
 
 import org.sql2o.Connection;
+import org.sql2o.Sql2oException;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -25,16 +26,14 @@ public class Sighting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Sighting sighting = (Sighting) o;
-        return id == sighting.id &&
-                animalId == sighting.animalId &&
+        return animalId == sighting.animalId &&
                 Objects.equals(location, sighting.location) &&
-                Objects.equals(rangerName, sighting.rangerName) &&
-                Objects.equals(sighted, sighting.sighted);
+                Objects.equals(rangerName, sighting.rangerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, location, rangerName, animalId, sighted);
+        return Objects.hash(location, rangerName, animalId);
     }
 
     public Sighting(int animalId, String location, String rangerName) {
@@ -116,6 +115,18 @@ public class Sighting {
         Collections.sort(allSightedAnimals, new SortById());
 
         return allSightedAnimals;
+    }
+
+    public static void deleteById(int id) {
+        String sql = "DELETE from sightings WHERE id=:id";
+        try (Connection con = DB.sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+
     }
 
 

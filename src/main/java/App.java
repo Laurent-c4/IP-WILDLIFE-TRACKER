@@ -60,12 +60,13 @@ public class App {
             String rangerName = req.queryParams("rangerName");
             Sighting newSighting = new Sighting(animalId, location,rangerName);
             newSighting.save();
+            System.out.println("THIssssssss" + newSighting.getId());
             List<FaunaSpecies> faunaSpeciesList = FaunaSpecies.getAll();
             if (FaunaSpecies.findById(animalId).getType().equals("endangered species")){
-                EndangeredAnimal endangeredAnimal = new EndangeredAnimal(FaunaSpecies.findById(animalId).getName(),age,health, FaunaSpecies.findById(animalId).getId());
+                EndangeredAnimal endangeredAnimal = new EndangeredAnimal(FaunaSpecies.findById(animalId).getName(),age,health, FaunaSpecies.findById(animalId).getId(), newSighting.getId());
                 endangeredAnimal.save();
             }else {
-                Animal animal = new Animal(FaunaSpecies.findById(animalId).getName(),FaunaSpecies.findById(animalId).getId());
+                Animal animal = new Animal(FaunaSpecies.findById(animalId).getName(),FaunaSpecies.findById(animalId).getId(),newSighting.getId());
                 animal.save();
             }
 
@@ -83,7 +84,17 @@ public class App {
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
-        //get: delete
+        //get: delete a sighting by id
+        get("/sightings/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfSightingToDelete = Integer.parseInt(req.params("id"));
+            Sighting sightingToDelete = Sighting.findById(idOfSightingToDelete);
+            Sighting.deleteById(idOfSightingToDelete);
+            EndangeredAnimal.deleteBySightingId(idOfSightingToDelete);
+            Animal.deleteBySightingId(idOfSightingToDelete);
+            res.redirect("/sightings/all");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
 
 
