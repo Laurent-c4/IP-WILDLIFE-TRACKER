@@ -11,6 +11,7 @@ mainClassName = 'App'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
