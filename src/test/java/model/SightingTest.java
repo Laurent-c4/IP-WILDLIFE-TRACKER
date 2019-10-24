@@ -3,7 +3,9 @@ package model;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -36,6 +38,17 @@ public class SightingTest {
         sighting.save();
         assertEquals(sighting,Sighting.getAll().get(0));
     }
+
+    @Test
+    public void save_recordsTimeOfCreationInDatabase() {
+        Sighting sighting = new Sighting(1,"Zone A","c4thasavage" );
+        sighting.save();
+        Timestamp sighted = Sighting.findById(sighting.getId()).getSighted();
+        Timestamp rightNow = new Timestamp(new Date().getTime());
+        assertEquals(rightNow.getDay(), sighted.getDay());
+    }
+
+
 
     @Test
     public void getAllSightedAnimals_retrievesAllSightedAnimalsFromDatabase_animalList() {
