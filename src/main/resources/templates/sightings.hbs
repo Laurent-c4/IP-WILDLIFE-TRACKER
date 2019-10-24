@@ -4,7 +4,7 @@
 
     {{#if sightings}}
         <div class="d-flex justify-content-center">
-        <table class="table text-white floatedTable" style="width: 67%;">
+        <table class="table text-white floatedTable" style="width: 60%;">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -26,11 +26,12 @@
             {{/each}}
             </tbody>
         </table>
-        <table class="table text-white floatedTable" style="width: 33%;">
+        <table class="table text-white floatedTable" style="width: 40%;">
             <thead>
             <tr>
                 <th scope="col">Area</th>
                 <th scope="col">Ranger</th>
+                <th scope="col">Sighted</th>
             </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                 <tr>
                     <td>{{location}}</td>
                     <td>{{rangerName}}</td>
+                    <td>{{sighted}}</td>
                 </tr>
             {{/each}}
             </tbody>
