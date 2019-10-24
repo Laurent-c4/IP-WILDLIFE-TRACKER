@@ -16,12 +16,13 @@ public abstract class Fauna {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fauna fauna = (Fauna) o;
-        return Objects.equals(name, fauna.name);
+        return Objects.equals(name, fauna.name) &&
+                Objects.equals(type, fauna.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, type);
     }
 
     public String getName() {

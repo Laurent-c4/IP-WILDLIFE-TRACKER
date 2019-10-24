@@ -3,6 +3,7 @@ package model;
 import org.sql2o.Connection;
 import sun.security.provider.certpath.Vertex;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +14,28 @@ public class Sighting {
     private String location;
     private String rangerName;
     private int animalId;
+    private Timestamp sighted;
+
+    public Timestamp getSighted() {
+        return sighted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sighting sighting = (Sighting) o;
+        return id == sighting.id &&
+                animalId == sighting.animalId &&
+                Objects.equals(location, sighting.location) &&
+                Objects.equals(rangerName, sighting.rangerName) &&
+                Objects.equals(sighted, sighting.sighted);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location, rangerName, animalId, sighted);
+    }
 
     public Sighting(int animalId, String location, String rangerName) {
         this.location = location;
@@ -36,25 +59,10 @@ public class Sighting {
         return animalId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Sighting sighting = (Sighting) o;
-        return animalId == sighting.animalId &&
-                Objects.equals(location, sighting.location) &&
-                Objects.equals(rangerName, sighting.rangerName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(location, rangerName, animalId);
-    }
-
 
     public void save() {
         try (Connection con = DB.sql2o.open()) {
-            String sql = "INSERT INTO sightings (animalId, location, rangerName) VALUES (:animalId, :location, :rangerName);";
+            String sql = "INSERT INTO sightings (animalId, location, rangerName, sighted) VALUES (:animalId, :location, :rangerName, now());";
             this.id = (int) con.createQuery(sql, true)
                     .addParameter("animalId", this.animalId)
                     .addParameter("location", this.location)
@@ -66,6 +74,19 @@ public class Sighting {
 
         }
 
+    }
+
+    public static Sighting findById(int id) {
+        try (Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM sightings WHERE id=:id ;";
+            Sighting sighting= con.createQuery(sql)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(Sighting.class);
+            return sighting;
+
+
+        }
     }
 
     public static List<Sighting> getAll() {
