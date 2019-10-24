@@ -11,35 +11,35 @@ public class EndangeredAnimalTest {
 
     @Test
     public void endangeredAnimal_InstantiatesCorrectly_true() {
-        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2);
+        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2,4);
         assertTrue(animal instanceof EndangeredAnimal);
     }
 
     @Test
     public void endangeredAnimal_InstantiatesWithName_true() {
-        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2);
+        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2,4);
         assertEquals("Cheetah", animal.getName());
     }
 
     @Test
     public void animal_checksCorrectlyIfAnimalsAreTheSame_true() {
-        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2);
-        EndangeredAnimal otherAnimal = new EndangeredAnimal("Cheetah","Young", "Okay",2);
+        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young", "Okay",2,4);
+        EndangeredAnimal otherAnimal = new EndangeredAnimal("Cheetah","Young", "Okay",2,4);
         assertTrue(animal.equals(otherAnimal));
     }
 
     @Test
     public void save_SavesAnimalToDatabase_Animal() {
-        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young","Okay",2);
+        EndangeredAnimal animal = new EndangeredAnimal("Cheetah","Young","Okay",2,4);
         animal.save();
         assertEquals(animal,EndangeredAnimal.getAll().get(0));
     }
 
     @Test
     public void find_returnsEndangeredAnimalWithSameId_secondAnimal() {
-        EndangeredAnimal firstAnimal = new EndangeredAnimal("Cheetah","Young","Okay",2);
+        EndangeredAnimal firstAnimal = new EndangeredAnimal("Cheetah","Young","Okay",2,4);
         firstAnimal.save();
-        EndangeredAnimal secondAnimal = new EndangeredAnimal("Cheetah","Young","Okay",2);
+        EndangeredAnimal secondAnimal = new EndangeredAnimal("Cheetah","Young","Okay",2,4);
         secondAnimal.save();
         assertEquals(EndangeredAnimal.findById(secondAnimal.getId()), secondAnimal);
     }

@@ -11,35 +11,35 @@ public class AnimalTest {
 
     @Test
     public void animal_InstantiatesCorrectly_true() {
-        Animal animal = new Animal("Cheetah",2);
+        Animal animal = new Animal("Cheetah",2, 3);
         assertTrue(animal instanceof Animal);
     }
 
     @Test
     public void animal_InstantiatesWithName_true() {
-        Animal animal = new Animal("Cheetah",2);
+        Animal animal = new Animal("Cheetah",2, 3);
         assertEquals("Cheetah", animal.getName());
     }
 
     @Test
     public void animal_checksCorrectlyIfAnimalsAreTheSame_true() {
-        Animal animal = new Animal("Cheetah",2);
-        Animal otherAnimal = new Animal("Cheetah",2);
+        Animal animal = new Animal("Cheetah",2, 3);
+        Animal otherAnimal = new Animal("Cheetah",2,3);
         assertTrue(animal.equals(otherAnimal));
     }
 
     @Test
     public void save_SavesAnimalToDatabase_Animal() {
-        Animal animal = new Animal("Cheetah",2);
+        Animal animal = new Animal("Cheetah",2, 3);
         animal.save();
         assertEquals(animal,Animal.getAll().get(0));
     }
 
     @Test
     public void find_returnsAnimalWithSameId_secondAnimal() {
-        Animal firstAnimal = new Animal("Cheetah",2);
+        Animal firstAnimal = new Animal("Cheetah",2, 3);
         firstAnimal.save();
-        Animal secondAnimal = new Animal("Lion",2);
+        Animal secondAnimal = new Animal("Lion",2,3);
         secondAnimal.save();
         assertEquals(Animal.findById(secondAnimal.getId()), secondAnimal);
     }

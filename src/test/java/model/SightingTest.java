@@ -58,11 +58,11 @@ public class SightingTest {
         secondFaunaSpecies.save();
         FaunaSpecies thirdFaunaSpecies = new FaunaSpecies("Cheetah", "endangered species"); //Endangered Animal
         thirdFaunaSpecies.save();
-        Animal firstAnimal = new Animal(FaunaSpecies.getAll().get(1).getName(),FaunaSpecies.getAll().get(1).getId());
+        Animal firstAnimal = new Animal(FaunaSpecies.getAll().get(1).getName(),FaunaSpecies.getAll().get(1).getId(),4);
         firstAnimal.save();
-        EndangeredAnimal firstEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(0).getName(),"Old", "Sick",FaunaSpecies.getAll().get(0).getId());
+        EndangeredAnimal firstEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(0).getName(),"Old", "Sick",FaunaSpecies.getAll().get(0).getId(),4);
         firstEndangeredAnimal.save();
-        EndangeredAnimal secondEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(2).getName(),"Young", "Good",FaunaSpecies.getAll().get(2).getId());
+        EndangeredAnimal secondEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(2).getName(),"Young", "Good",FaunaSpecies.getAll().get(2).getId(),4);
         secondEndangeredAnimal.save();
         Object[] faunaCatalogue = new Object[] { firstAnimal, firstEndangeredAnimal, secondEndangeredAnimal};
         Sighting firstSighting = new Sighting(firstAnimal.getAnimalId(),"Zone B", "c4thasavage");
