@@ -66,11 +66,8 @@ build/
 out/
 out
 .gradle
-gradle
-gradle/
 
 gradlew.bat
-gradlew
 
 settings.gradle
 
@@ -78,3 +75,5 @@ settings.gradle
 .idea
 .idea/
 *.iml
+
+!gradle-wrapper.jar
