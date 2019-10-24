@@ -39,15 +39,25 @@ public class SightingTest {
 
     @Test
     public void getAllSightedAnimals_retrievesAllSightedAnimalsFromDatabase_animalList() {
-        Animal firstAnimal = new Animal("Cheetah");
+        FaunaSpecies faunaSpecies = new FaunaSpecies("White Rhino", "endangered species"); //Endangered Animal
+        faunaSpecies.save();
+        FaunaSpecies secondFaunaSpecies = new FaunaSpecies("Lion", "common species"); //Animal
+        secondFaunaSpecies.save();
+        FaunaSpecies thirdFaunaSpecies = new FaunaSpecies("Cheetah", "endangered species"); //Endangered Animal
+        thirdFaunaSpecies.save();
+        Animal firstAnimal = new Animal(FaunaSpecies.getAll().get(1).getName(),FaunaSpecies.getAll().get(1).getId());
         firstAnimal.save();
-        EndangeredAnimal firstEndangeredAnimal = new EndangeredAnimal("White Rhino","Old", "Sick");
+        EndangeredAnimal firstEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(0).getName(),"Old", "Sick",FaunaSpecies.getAll().get(0).getId());
         firstEndangeredAnimal.save();
-        Object[] faunaCatalogue = new Object[] { firstAnimal, firstEndangeredAnimal};
-        Sighting firstSighting = new Sighting(firstAnimal.getId(),"Zone B", "c4thasavage");
+        EndangeredAnimal secondEndangeredAnimal = new EndangeredAnimal(FaunaSpecies.getAll().get(2).getName(),"Young", "Good",FaunaSpecies.getAll().get(2).getId());
+        secondEndangeredAnimal.save();
+        Object[] faunaCatalogue = new Object[] { firstAnimal, firstEndangeredAnimal, secondEndangeredAnimal};
+        Sighting firstSighting = new Sighting(firstAnimal.getAnimalId(),"Zone B", "c4thasavage");
         firstSighting.save();
-        Sighting secondSighting = new Sighting(firstEndangeredAnimal.getId(),"Zone A", "c4thasavage");
+        Sighting secondSighting = new Sighting(firstEndangeredAnimal.getAnimalId(),"Zone A", "c4thasavage");
         secondSighting.save();
+        Sighting thirdSighting = new Sighting(secondEndangeredAnimal.getAnimalId(),"Zone A", "c4thasavage");
+        thirdSighting.save();
         assertEquals(Arrays.asList(faunaCatalogue),Sighting.getAllSightedAnimals());
     }
 
